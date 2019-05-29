@@ -140,12 +140,12 @@ public class StringArrayUtils {
      */ // TODO
     public static String[] removeConsecutiveDuplicates(String[] array) {
         ArrayList<String> noConsecutiveDupes = new ArrayList<String>() ;
+        if (array.length == 0) return array;
         noConsecutiveDupes.add(array[0]);
         for (int i = 1; i < array.length; i++) {
             if (!array[i].equals(array[i-1])) noConsecutiveDupes.add(array[i]);
         }
         String[] removed = new String[noConsecutiveDupes.size()];
-        //removed = noConsecutiveDupes.toArray(removed);
         return noConsecutiveDupes.toArray(removed);
 
     }
@@ -155,8 +155,21 @@ public class StringArrayUtils {
      * @return array of Strings with each consecutive duplicate occurrence concatenated as a single string in an array of Strings
      */ // TODO
     public static String[] packConsecutiveDuplicates(String[] array) {
-        return null;
+        ArrayList<String> packedDuplicates = new ArrayList<String>();
+        packedDuplicates.add(array[0]);
+        for (int i = 1; i < array.length; i++) {
+            if (!array[i].equals(array[i-1])) {
+                packedDuplicates.add(array[i]);
+            } else {
+                String old = packedDuplicates.get(packedDuplicates.size()-1);
+                packedDuplicates.set(packedDuplicates.size()-1 , old + array[i]);
+            }
+        }
+        String[] packed = new String[packedDuplicates.size()];
+        packed = packedDuplicates.toArray(packed);
+        return packed;
     }
+
 
 
 }
